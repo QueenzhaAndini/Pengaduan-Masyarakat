@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Pengaduan Masyarakat</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            border: 1px solid #e2e8f0;
+        }
+
+        .header {
+            margin-bottom: 28px;
+            text-align: left;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 16px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 6px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #334155;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .btn-simpan {
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-simpan:hover {
+            background-color: #1d4ed8;
+        }
+
+        .table-wrapper {
+            margin-top: 28px;
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        thead {
+            background-color: #f1f5f9;
+        }
+
+        th {
+            padding: 12px 16px;
+            font-weight: 600;
+            color: #475569;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #334155;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .btn-hapus {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-hapus:hover {
+            background-color: #dc2626;
+        }
+
+        footer {
+            margin-top: 24px;
+            text-align: center;
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        @media (max-width: 640px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <header class="header">
+            <h1>Portal Pengaduan Masyarakat</h1>
+            <p>Sistem Layanan Aspirasi dan Pengaduan Online Rakyat (LAPOR)</p>
+        </header>
+
+        <section class="form-grid">
+            <div class="form-group">
+                <label for="namaPelapor">Nama Pelapor</label>
+                <input type="text" id="namaPelapor" placeholder="Tuliskan Nama Anda">
+            </div>
+
+            <div class="form-group">
+                <label for="isiLaporan">Isi Laporan / Pengaduan</label>
+                <input type="text" id="isiLaporan" placeholder="Tuliskan detail pengaduan...">
+            </div>
+        </section>
+
+        <button class="btn-simpan" type="button" onclick="tambahData()">Kirim Laporan</button>
+
+        <section class="table-wrapper">
+            <table id="tabelPengaduan">
+                <thead>
+                    <tr>
+                        <th style="width: 60px;">No</th>
+                        <th style="width: 200px;">Nama Pelapor</th>
+                        <th>Laporan Pengaduan</th>
+                        <th style="width: 90px; text-align: center;">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Ahmad Subagja</td>
+                        <td>Jalan berlubang di depan RT 02/RW 01</td>
+                        <td style="text-align: center;"><button class="btn-hapus" onclick="hapusBaris(this)">Hapus</button></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Siti Nurhaliza</td>
+                        <td>Lampu penerangan jalan utama padam</td>
+                        <td style="text-align: center;"><button class="btn-hapus" onclick="hapusBaris(this)">Hapus</button></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Budi Santoso</td>
+                        <td>Saluran air tersumbat di area pasar desa</td>
+                        <td style="text-align: center;"><button class="btn-hapus" onclick="hapusBaris(this)">Hapus</button></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Dewi Lestari</td>
+                        <td>Permohonan penyemprotan fogging DBD</td>
+                        <td style="text-align: center;"><button class="btn-hapus" onclick="hapusBaris(this)">Hapus</button></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Rian Hidayat</td>
+                        <td>Fasilitas tempat sampah umum rusak</td>
+                        <td style="text-align: center;"><button class="btn-hapus" onclick="hapusBaris(this)">Hapus</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <footer>
+            &copy; Proyek Siswa SMK Rekayasa Perangkat Lunak (RPL)
+        </footer>
+    </main>
+
+    <script>
+        var nomorUrut = 6;
+
+        function tambahData() {
+            var namaInput = document.getElementById('namaPelapor').value;
+            var laporanInput = document.getElementById('isiLaporan').value;
+
+            if (namaInput.trim() === '' || laporanInput.trim() === '') {
+                alert('Nama Pelapor dan Isi Laporan wajib diisi!');
+                return;
+            }
+
+            var tabel = document.getElementById('tabelPengaduan').getElementsByTagName('tbody')[0];
+            var barisBaru = tabel.insertRow();
+
+            var kolomNo = barisBaru.insertCell(0);
+            var kolomNama = barisBaru.insertCell(1);
+            var kolomLaporan = barisBaru.insertCell(2);
+            var kolomAksi = barisBaru.insertCell(3);
+
+            kolomNo.textContent = nomorUrut;
+            kolomNama.textContent = namaInput;
+            kolomLaporan.textContent = laporanInput;
+            kolomAksi.style.textAlign = 'center';
+            kolomAksi.innerHTML = '<button class="btn-hapus" onclick="hapusBaris(this)">Hapus</button>';
+
+            nomorUrut++;
+
+            document.getElementById('namaPelapor').value = '';
+            document.getElementById('isiLaporan').value = '';
+        }
+
+        function hapusBaris(tombol) {
+            var barisPilihan = tombol.parentNode.parentNode;
+            barisPilihan.parentNode.removeChild(barisPilihan);
+        }
+    </script>
+
+</body>
+</html>
